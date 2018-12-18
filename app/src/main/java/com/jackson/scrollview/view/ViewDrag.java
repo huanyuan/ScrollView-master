@@ -117,10 +117,10 @@ public class ViewDrag extends LinearLayout {
             if (releasedChild == dragView1) {
 //                mViewDragHelper.settleCapturedViewAt(x, y);
                 LogTools.d("onViewReleased()=========.x:" + x + " .y===:" + x);
-                SPUtils.put(mContext,"x",x);
-                SPUtils.put(mContext,"y",y);
+                SPUtils.put(mContext,"x",dragView1.getLeft());
+                SPUtils.put(mContext,"y",dragView1.getTop());
                 invalidate();
-            }
+        }
         }
     };
 
@@ -160,14 +160,14 @@ public class ViewDrag extends LinearLayout {
 
         if (isFirst) {
             //初始化默认位置，只需要在第一次执行这个方法的时候去初始化
-            float x = (float) SPUtils.get(mContext,"x",0f);
-            float y = (float) SPUtils.get(mContext,"y",0f);
+            int x = (int) SPUtils.get(mContext,"x",0);
+            int y = (int) SPUtils.get(mContext,"y",0);
             LogTools.d("onLayout()=========changed x:" + x + " y===:" + y);
             mPoint1.x = dragView1.getLeft();
             mPoint1.y = dragView1.getTop();
             LogTools.d("onLayout()=========changed x:" + x + " y===:" + y);
             //设置view的位置
-            dragView1.layout((int)x, (int)y, (int)x + dragView1.getMeasuredWidth(), (int)y + dragView1.getMeasuredHeight());
+            dragView1.layout(x,y, x + dragView1.getMeasuredWidth(), y + dragView1.getMeasuredHeight());
             isFirst = false;
             invalidate();
         }
